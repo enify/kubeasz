@@ -88,7 +88,7 @@ if [ -d "/etc/ansible" ]; then
     fi
 else
     echo -e "[-]正在将资源文件拷贝到 /etc/ansible 路径下...\c"
-    mkdir "/etc/ansivle"
+    mkdir "/etc/ansible"
     cp -r $(cd `dirname $0`; pwd)/* /etc/ansible > /dev/null || { echo "失败"; exit 1; }
     echo "成功"
 fi
