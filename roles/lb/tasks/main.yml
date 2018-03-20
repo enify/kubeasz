@@ -10,9 +10,17 @@
   apt: name=haproxy state=latest
   when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version == "16"
 
-- name: yum安装 haproxy
-  yum: name=haproxy state=latest
-  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7"
+#- name: yum安装 haproxy
+#  yum: name=haproxy state=latest
+#  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7"
+
+- name: 拷贝haproxy软件包
+  copy: src={{ base_dir }}/packages/centos/rpms/haproxy dest=/tmp/haproxy mode=0755
+
+- name: 安装haproxy软件包
+  command: rpm -ivh /tmp/haproxy/*.rpm  --force --nodeps
+
+#####################
 
 - name: 创建haproxy配置目录
   file: name=/etc/haproxy state=directory
@@ -28,9 +36,17 @@
   apt: name=keepalived state=latest
   when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version == "16"
 
-- name: yum安装 keepalived
-  yum: name=keepalived state=latest
-  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7"
+#- name: yum安装 keepalived
+#  yum: name=keepalived state=latest
+#  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7"
+
+- name: 拷贝keepalived软件包
+  copy: src={{ base_dir }}/packages/centos/rpms/keepalived dest=/tmp/keepalived mode=0755
+
+- name: 安装keepalived软件包
+  command: rpm -ivh /tmp/keepalived/*.rpm  --force --nodeps
+
+#####################
 
 - name: 创建keepalived配置目录
   file: name=/etc/keepalived state=directory

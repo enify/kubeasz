@@ -53,16 +53,38 @@
         - python-firewall
         - firewalld-filesystem
 
-    - name: 安装基础软件包
-      yum: name={{ item }}  state=installed
+    #- name: 安装基础软件包
+    #  yum: name={{ item }}  state=installed
+    #  with_items:
+    #    - vim
+    #    - git
+    #    - wget
+    #    - psmisc # 安装psmisc 才能使用命令killall，它在keepalive的监测脚本中使用到
+    #    - net-tools
+    #    - bash-completion
+
+    - name: 拷贝基础软件包
+      copy: src={{ base_dir }}/packages/centos/rpms/{{ item }} dest=/tmp/{{ item }} mode=0755
       with_items:
         - vim
         - git
         - wget
-        - psmisc # 安装psmisc 才能使用命令killall，它在keepalive的监测脚本中使用到
+        - psmisc
         - net-tools
         - bash-completion
-
+    
+    - name: 安装基础软件包
+      command: rpm -ivh /tmp/{{ item }}/*.rpm  --force --nodeps
+      with_items:
+        - vim
+        - git
+        - wget
+        - psmisc
+        - net-tools
+        - bash-completion
+    
+    #####################
+    
     - name: 临时关闭 selinux
       shell: "setenforce 0" 
       failed_when: false

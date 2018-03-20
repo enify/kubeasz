@@ -26,3 +26,12 @@
 
 五. 开始安装
     - cd /etc/ansible ; ansible-playbook 90.setup.yml
+
+
+
+# 对原仓库所做的修改
+    - 01.prepare :
+        - deploy任务: 未更改
+        - prepare任务: 安装基础软件包(=>复制安装包，rpm离线安装)
+        - lb任务：将haproxy和keepalived的安装变更为本地安装。
+    
