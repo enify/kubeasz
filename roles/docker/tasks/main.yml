@@ -40,10 +40,18 @@
   when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version == "16"
   tags: docker-tag
 
-- name: yum安装轻量JSON处理程序
-  yum: name=jq state=latest
-  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7"
-  tags: docker-tag
+#- name: yum安装轻量JSON处理程序
+#  yum: name=jq state=latest
+#  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7"
+#  tags: docker-tag
+
+- name: 拷贝jq软件包
+  copy: src={{ base_dir }}/packages/centos/rpms/jq dest=/tmp/jq mode=0755
+
+- name: 安装jq软件包
+  command: rpm -ivh /tmp/jq/*.rpm  --force --nodeps
+
+#####################
 
 - name: 下载 docker-tag
   copy: src=docker-tag dest={{ bin_dir }}/docker-tag mode=0755

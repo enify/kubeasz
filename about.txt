@@ -34,4 +34,5 @@
         - deploy任务: 未更改
         - prepare任务: 安装基础软件包(=>复制安装包，rpm离线安装)
         - lb任务：将haproxy和keepalived的安装变更为本地安装。
-    
+    - 03.docker :
+        - docker任务：将jq的安装变更为本地安装
