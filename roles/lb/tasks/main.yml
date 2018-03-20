@@ -15,7 +15,7 @@
 #  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7"
 
 - name: 拷贝haproxy软件包
-  copy: src={{ base_dir }}/packages/centos/rpms/haproxy dest=/tmp/haproxy mode=0755
+  copy: src={{ base_dir }}/packages/centos/rpms/haproxy dest=/tmp/ mode=0755
 
 - name: 安装haproxy软件包
   command: rpm -ivh /tmp/haproxy/*.rpm  --force --nodeps
@@ -41,7 +41,7 @@
 #  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7"
 
 - name: 拷贝keepalived软件包
-  copy: src={{ base_dir }}/packages/centos/rpms/keepalived dest=/tmp/keepalived mode=0755
+  copy: src={{ base_dir }}/packages/centos/rpms/keepalived dest=/tmp/ mode=0755
 
 - name: 安装keepalived软件包
   command: rpm -ivh /tmp/keepalived/*.rpm  --force --nodeps

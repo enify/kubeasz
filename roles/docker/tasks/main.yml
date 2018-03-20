@@ -46,7 +46,7 @@
 #  tags: docker-tag
 
 - name: 拷贝jq软件包
-  copy: src={{ base_dir }}/packages/centos/rpms/jq dest=/tmp/jq mode=0755
+  copy: src={{ base_dir }}/packages/centos/rpms/jq dest=/tmp/ mode=0755
 
 - name: 安装jq软件包
   command: rpm -ivh /tmp/jq/*.rpm  --force --nodeps

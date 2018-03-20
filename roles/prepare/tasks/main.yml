@@ -45,7 +45,6 @@
   - lxc-common
 
 - block:
-  when: ansible_distribution == "CentOS"
     - name: 删除centos默认安装
       yum: name={{ item }} state=absent
       with_items:
@@ -64,7 +63,7 @@
     #    - bash-completion
 
     - name: 拷贝基础软件包
-      copy: src={{ base_dir }}/packages/centos/rpms/{{ item }} dest=/tmp/{{ item }} mode=0755
+      copy: src={{ base_dir }}/packages/centos/rpms/{{ item }} dest=/tmp/ mode=0755
       with_items:
         - vim
         - git
@@ -94,6 +93,7 @@
         dest: /etc/selinux/config
         regexp: "^SELINUX"
         line: "SELINUX=disabled"
+  when: ansible_distribution == "CentOS"
 
 - name: 添加 kubectl 命令自动补全
   shell: "sed -i '/kubectl completion/d' ~/.bashrc && \
