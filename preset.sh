@@ -27,10 +27,7 @@ if [ $? == 0 ]; then
     echo "[-] pip 已存在，跳过安装..."
 else
     echo -e "[+] 安装pip 中...\c"
-    yum localinstall "$RPM_PACKAGES_PATH/python-backports-1.0-8.el7.x86_64.rpm" -y >/dev/null || { echo "python-backports安装失败"; exit 1; }
-    yum localinstall "$RPM_PACKAGES_PATH/python-backports-ssl_match_hostname-3.4.0.2-4.el7.noarch.rpm" -y >/dev/null || { echo "[!]python-backports-ssl_match_hostname安装失败"; exit 1; }
-    yum localinstall "$RPM_PACKAGES_PATH/python-setuptools-0.9.8-7.el7.noarch.rpm" -y >/dev/null || { echo "python-setuptools安装失败"; exit 1; }
-    yum localinstall "$RPM_PACKAGES_PATH/python2-pip-8.1.2-5.el7.noarch.rpm" -y >/dev/null || { echo "python2-pip安装失败"; exit 1; }
+    rpm -ivh "$RPM_PACKAGES_PATH/python-pip/*" --force --nodeps > /dev/null || { echo "pip安装失败"; exit 1; }
     echo "成功"
 fi
 
