@@ -1,0 +1,28 @@
+一. 在deploy节点安装python-pip, ansible
+    1)安装python-pip
+        - yum localinstall python-backports-1.0-8.el7.x86_64.rpm -y
+        - yum localinstall python-backports-ssl_match_hostname-3.4.0.2-4.el7.noarch.rpm -y
+        - yum localinstall python-setuptools-0.9.8-7.el7.noarch.rpm -y
+        - yum localinstall python2-pip-8.1.2-5.el7.noarch.rpm -y
+        - 
+    2)安装ansible
+        - pip install --find-links <pip离线包路径> ansible
+
+
+二. 设置免密登录：生成ssh秘钥，并将秘钥复制到所有节点。
+    1) 生成秘钥
+    - ssh-keygen -t rsa -b 2048 -P '' -f /root/.ssh/id_rsa
+    2) 复制秘钥到各节点
+    - ssh-copy-id -o StrictHostKeyChecking=no <节点IP>
+
+
+三. 复制资源文件
+    - cp -r /path/to/dir/* /etc/ansible
+
+
+四. 测试节点ssh连接情况
+    - ansible -m ping all
+
+
+五. 开始安装
+    - cd /etc/ansible ; ansible-playbook 90.setup.yml
