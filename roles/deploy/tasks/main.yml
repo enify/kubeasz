@@ -123,3 +123,30 @@
 - name: 准备 kubedns的部署文件 kubedns.yaml
   template: src=kubedns.yaml.j2 dest={{ base_dir }}/manifests/kubedns/kubedns.yaml
 
+- name: 准备 dashboard的部署文件 kubernetes-dashboard.yaml
+  template: src=kubernetes-dashboard.yaml.j2 dest={{ base_dir }}/manifests/dashboard/kubernetes-dashboard.yaml
+
+- name: 准备 heapster的部署文件 grafana.yaml
+  template: src=grafana.yaml.j2 dest={{ base_dir }}/manifests/heapster/grafana.yaml
+
+- name: 准备 heapster的部署文件 heapster.yaml
+  template: src=heapster.yaml.j2 dest={{ base_dir }}/manifests/heapster/heapster.yaml
+
+- name: 准备 heapster的部署文件 influxdb.yaml
+  template: src=influxdb.yaml.j2 dest={{ base_dir }}/manifests/heapster/influxdb.yaml
+
+- name: 准备 heapster的部署文件 influxdb.yaml
+  template: src=influxdb2.yaml.j2 dest={{ base_dir }}/manifests/heapster/influxdb-v1.1.1/influxdb.yaml
+
+- name: 准备 ingress的部署文件 traefik-ingress.yaml
+  template: src=traefik-ingress.yaml.j2  dest={{ base_dir }}/manifests/ingress/traefik-ingress.yaml
+
+- name: 准备 efk的部署文件 es-statefulset.yaml
+  template: src=es-statefulset.yaml.j2 dest={{ base_dir }}/manifests/efk/es-statefulset.yaml
+
+- name: 准备 efk的部署文件 fluentd-es-ds.yaml
+  template: src=fluentd-es-ds.yaml.j2 dest={{ base_dir }}/manifests/efk/fluentd-es-ds.yaml
+
+- name: 准备 efk的部署文件 kibana-deployment.yaml
+  template: src=kibana-deployment.yaml.j2 dest={{ base_dir }}/manifests/efk/kibana-deployment.yaml
+  

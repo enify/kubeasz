@@ -1,0 +1,33 @@
+1. 先创建docker 仓库，并上传必须的镜像
+2. 将镜像仓库地址填入hosts文件中
+3. ansible将根据仓库地址填充到各yaml文件中。
+
+
+docker load < k8s-dns-sidecar-amd64-v1.14.8.tar
+docker tag mirrorgooglecontainers/k8s-dns-sidecar-amd64:1.14.8 192.168.32.36:4000/k8s/k8s-dns-sidecar-amd64:1.14.8
+docker push 192.168.32.36:4000/k8s/k8s-dns-sidecar-amd64:1.14.8
+
+
+
+# 修改hosts文件中的各IP, VIP, APIServer地址, 负载均衡网卡， 仓库地址，
+# 注：pip在安装ansible时会冒出一些错误：NewConnectionError... 不必慌张，所有包仍能正常安装。
+
+
+需要的镜像
+{{ docker_repo }}/k8s-dns-kube-dns-amd64:1.14.8
+{{ docker_repo }}/k8s-dns-dnsmasq-nanny-amd64:1.14.8
+{{ docker_repo }}/k8s-dns-sidecar-amd64:1.14.8
+{{ docker_repo }}/calico/node:v3.0.3
+{{ docker_repo }}/calico/cni:v2.0.1
+{{ docker_repo }}/calico/kube-controllers:v2.0.1
+{{ docker_repo }}/flannel:v0.10.0-amd64
+{{ docker_repo }}/pause-amd64:3.0     (此项配置位于./roles/kube-node/templates/kubelet.service.j2文件中)
+{{ docker_repo }}/kubernetes-dashboard-amd64:v1.8.3
+{{ docker_repo }}/heapster-grafana-amd64:v4.4.3
+{{ docker_repo }}}/heapster-amd64:v1.5.1
+{{ docker_repo }}}/heapster-influxdb-amd64:v1.3.3
+{{ docker_repo }}/traefik:latest          (ingress相关)
+{{ docker_repo }}/elasticsearch:v5.6.4
+{{ docker_repo }}/alpine:3.6
+{{ docker_repo }}}/fluentd-elasticsearch:v2.0.2
+{{ docker_repo }}}/kibana:5.6.4

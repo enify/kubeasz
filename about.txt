@@ -34,6 +34,16 @@
     - 使用命令：kubectl create -f ./kubedns.yaml 来完成安装。
 
 
+七. 安装dashboard
+    - 将./manifests/dashboard/kubernetes-dashboard.yaml
+        ./manifests/dashboard/ui-admin-rbac.yaml
+        ./manifests/dashboard/ui-read-rbac.yaml 复制到某个master节点
+    - 将 kubernetes-dashboard-amd64-v1.8.3.tar 复制到该master节点，并使用 docker load < 加载镜像
+    - 使用命令：kubectl create -f ./kubernetes-dashboard.yaml 来安装DashBoard.
+    - 使用命令：kubectl create -f ./ui-admin-rbac.yaml 来部署 用户+密码 访问认证配置，密码文件位于 /etc/kubernetes/ssl/basic-auth.csv（可选）
+    - 使用命令：kubectl create -f ./ui-read-rbac.yaml 来部署 证书 访问认证配置（可选）
+
+
 
 
 # 对原仓库所做的修改
@@ -45,4 +55,14 @@
         - docker任务：将jq的安装变更为本地安装
 
     - 修改模板文件 ./roles/deploy/templates/kubedns.yaml.j2
-        - 在 image节下面添加一行： imagePullPolicy: Never  指只从本地库拉取
+        - 在三个image节下面添加一行： imagePullPolicy: Never  指只从本地库拉取镜像
+    
+    - 修改文件 ./manifests/dashboard/kubernetes-dashboard.yaml
+        - 在一个image节下面添加一行： imagePullPolicy: Never  指只从本地库拉取镜像
+
+
+
+常用命令：
+    - kubectl describe pod <Pod名> ：查看容器事件
+    - kubectl run --image-pull-policy=IfNotPresent :指定镜像的拉取策略
+    - vi /etc/resolv.conf
