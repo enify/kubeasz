@@ -28,6 +28,13 @@
     - cd /etc/ansible ; ansible-playbook 90.setup.yml
 
 
+六. 安装kube-dns
+    - 将 ./manifests/kubedns/kubedns.yaml 复制到某个master节点
+    - 将 kube-dns 相关的三个镜像复制到该master节点，并使用 docker load < 加载镜像
+    - 使用命令：kubectl create -f ./kubedns.yaml 来完成安装。
+
+
+
 
 # 对原仓库所做的修改
     - 01.prepare :
@@ -36,3 +43,6 @@
         - lb任务：将haproxy和keepalived的安装变更为本地安装。
     - 03.docker :
         - docker任务：将jq的安装变更为本地安装
+
+    - 修改模板文件 ./roles/deploy/templates/kubedns.yaml.j2
+        - 在 image节下面添加一行： imagePullPolicy: Never  指只从本地库拉取

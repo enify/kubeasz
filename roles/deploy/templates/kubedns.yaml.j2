@@ -81,6 +81,7 @@ spec:
       - name: kubedns
         #image: gcr.io/google_containers/k8s-dns-kube-dns-amd64:1.14.8
         image: mirrorgooglecontainers/k8s-dns-kube-dns-amd64:1.14.8
+        imagePullPolicy: Never
         resources:
           # TODO: Set memory limits when we've profiled the container for large
           # clusters, then set request = limit to keep this container in
@@ -133,6 +134,7 @@ spec:
       - name: dnsmasq
         #image: gcr.io/google_containers/k8s-dns-dnsmasq-nanny-amd64:1.14.8
         image: mirrorgooglecontainers/k8s-dns-dnsmasq-nanny-amd64:1.14.8
+        imagePullPolicy: Never
         livenessProbe:
           httpGet:
             path: /healthcheck/dnsmasq
@@ -172,6 +174,7 @@ spec:
       - name: sidecar
         #image: gcr.io/google_containers/k8s-dns-sidecar-amd64:1.14.8
         image: mirrorgooglecontainers/k8s-dns-sidecar-amd64:1.14.8
+        imagePullPolicy: Never
         livenessProbe:
           httpGet:
             path: /metrics
