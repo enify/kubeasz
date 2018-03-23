@@ -76,7 +76,7 @@ spec:
       containers:
       - name: fluentd-es
         #image: gcr.io/google-containers/fluentd-elasticsearch:v2.0.2
-        image: {{ docker_repo }}}/fluentd-elasticsearch:v2.0.2
+        image: {{ docker_repo }}/fluentd-elasticsearch:v2.0.2
         env:
         - name: FLUENTD_ARGS
           value: --no-supervisor -q

@@ -40,7 +40,7 @@ spec:
       containers:
       - name: heapster
         #image: gcr.io/google_containers/heapster-amd64:v1.5.1
-        image: {{ docker_repo }}}/heapster-amd64:v1.5.1
+        image: {{ docker_repo }}/heapster-amd64:v1.5.1
         imagePullPolicy: IfNotPresent
         command:
         - /heapster
