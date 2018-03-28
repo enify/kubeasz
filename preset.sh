@@ -107,4 +107,3 @@ ansible-playbook 90.setup.yml
 
 
 # TODO: ssh-copy-id时需要输入密码的问题(可能需要配置文件)
-# TODO: 修改99.clean.yml文件，添加清理rpm packages和docker 离线包的脚本。

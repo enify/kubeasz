@@ -133,3 +133,38 @@
     - "{{ ca_dir }}" 
     - "/root/.kube/"
     - "/etc/docker/"
+
+# 清理rpm离线包
+- hosts:
+  - kube-master
+  - kube-node
+  - deploy
+  - etcd
+  - lb
+  tasks:
+  - name: 清理01.prepare中传输的rpm离线包
+    file: name={{ item }} state=absent
+    with_items:
+    - "/tmp/vim/"
+    - "/tmp/git/"
+    - "/tmp/wget/"
+    - "/tmp/psmisc/"
+    - "/tmp/net-tools/"
+    - "/tmp/bash-completion/"
+
+- hosts: lb
+  tasks:
+  - name: 清理01.prepare.lb中传输的rpm离线包
+    file: name={{ item }} state=absent
+    with_items:
+    - "/tmp/haproxy/"
+    - "/tmp/keepalived/"
+
+- hosts:
+  - kube-master
+  - kube-node
+  tasks:
+  - name: 清理03.docker中传输的rpm离线包
+    file: name={{ item }} state=absent
+    with_items:
+    - "/tmp/jq/"
