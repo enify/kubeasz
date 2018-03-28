@@ -95,12 +95,11 @@ fi
 
 # 测试SSH连接
 echo "[-]预配置已经完成，正在测试与各节点的连接..."
-    ansible -m ping all
+ansible -m ping all || { echo "存在连接失败的节点，安装不能继续。请检查输出。"; exit 1; }
 
 
 #################
 # 开始安装
-read -p"[+]请检查连接情况是否正常，确认无误后，按回车键开始自动安装："
 echo "[-]安装中..."
 
 cd /etc/ansible
@@ -108,7 +107,4 @@ ansible-playbook 90.setup.yml
 
 
 # TODO: ssh-copy-id时需要输入密码的问题(可能需要配置文件)
-# TODO: 需要修改03.docker中的任务，docker-tag一节中有一个http请求
 # TODO: 修改99.clean.yml文件，添加清理rpm packages和docker 离线包的脚本。
-# TODO: 需要修改calico和flannel网络的配置，它会去拉取镜像。
-# TODO: 还有pause镜像也是从网上下下来的
