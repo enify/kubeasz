@@ -87,3 +87,7 @@ base_dir="/etc/ansible"
 #私有仓库 harbor服务器 (域名或者IP)
 #HARBOR_IP="192.168.1.8"
 #HARBOR_DOMAIN="harbor.yourdomain.com"
+
+# Docker仓库地址
+docker_url="192.168.32.36:4000"
+docker_repo="192.168.32.36:4000/k8s"
