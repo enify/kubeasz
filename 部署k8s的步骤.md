@@ -1,5 +1,25 @@
 ## 部署k8s的步骤
 
+### 目录
+  - [注意事项](#注意事项)
+  - [安装步骤](#安装步骤)
+    - [准备必要的仓库与镜像](#准备必要的仓库与镜像)
+    - [上传资源并修改配置文件](#上传资源并修改配置文件)
+    - [开始部署](#开始部署)
+  - [常用插件的部署](#常用插件的部署)
+    - [Kube-DNS](#Kube-DNS)
+    - [DashBoard](#DashBoard)
+    - [Heapster](#Heapster)
+    - [EFK](#EFK)
+    - [Ingress](#Ingress)
+    - [Ceph](#Ceph)
+  - [其它](#其它)
+    - [常用命令](#常用命令)
+    - [CentOS离线安装软件包的方法](#CentOS离线安装软件包的方法)
+    - [参考文档](#有关K8S的更多命令使用方法及文档可参考：)
+
+
+
 ### 注意事项
 - 适用于CentOS7 .
 - 组件版本：
@@ -106,7 +126,8 @@
   ```
   ➜ ansible-playbook /path/to/kube-offline/99.clean.yml
   ```
-- #### 常用插件的部署
+
+### 常用插件的部署
   - ##### Kube-DNS
     - Kube-DNS为集群内部提供域名解析服务，是安装完k8s之后首先需要部署的一个插件。它的部署方法如下：
       - 上传所需的镜像到私有仓库
@@ -460,8 +481,8 @@
       ➜ ceph osd tree  //查看osd的目录树
       ```
 
-#### 其它
-- ##### 常用命令
+### 其它
+- #### 常用命令
   ```
   ➜ kubectl get nodes // 获取节点信息
   ➜ kubectl get componentstatus  // 获取集群组件的信息
@@ -475,7 +496,7 @@
   ➜ kubectl delete -f <YAML文件>  // 根据文件来删除已有资源
   ```
 
-- ##### CentOS离线安装软件包的方法
+- #### CentOS离线安装软件包的方法
 ```
 // 离线下载rpm包及其依赖
 ➜ yum install --downloadonly --downloaddir=<保存的目录>  <包名>
@@ -484,7 +505,7 @@
 ➜ rpm -ivh ./*.rpm
 ```
 
-- ##### 有关K8S的更多命令使用方法及文档可参考：
+- #### 有关K8S的更多命令使用方法及文档可参考：
   - [Kubernetes中文社区](https://www.kubernetes.org.cn/docs)
   - [Kubernetes指南](https://github.com/feiskyer/kubernetes-handbook)
   - [使用Ansible脚本安装K8S集群](https://github.com/gjmzj/kubeasz)
