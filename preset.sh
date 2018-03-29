@@ -5,6 +5,20 @@
 PY_PACKAGES_PATH="./packages/centos/pypackages"
 RPM_PACKAGES_PATH="./packages/centos/rpms"
 SSH_PRIVATE_KEY="/root/.ssh/id_rsa"  # deploy节点生成私钥存放的路径
+SILENT=false  # 是否采用静默模式安装
+
+
+# 传递参数
+case $1 in
+-h|--help)
+    echo '-s | --silent    静默安装模式'
+    echo '-h | --help      显示此帮助信息并退出'
+    exit 0;
+;;
+-s|--silent)
+	SILENT=true;
+;;
+esac
 
 
 # 检测是否为root
@@ -15,10 +29,14 @@ if [ "$root" -ne 0 ] ;then
 fi
 
 
-echo "欢迎使用k8s离线安装脚本！"
-echo "安装前，请先确认你已经配置好当前目录下hosts文件中的各项。"
-echo "(若文件不存在，可由”./example/hosts.m-masters.example“文件复制得到)"
-read -p "检查无误后，请按回车键开始处理..."
+if [ $SILENT == false ] ;then
+    echo "欢迎使用k8s离线安装脚本！"
+    echo "安装前，请先确认你已经配置好当前目录下hosts文件中的各项。"
+    echo "(若文件不存在，可由”./example/hosts.m-masters.example“文件复制得到)"
+    read -p "检查无误后，请按回车键开始处理..."
+else
+    echo "脚本执行中..."
+fi
 
 
 # 安装python-pip
@@ -47,7 +65,12 @@ fi
 echo "[-]正在配置节点SSH免密登录..."
 # 1.生成秘钥文件
 if [ -f $SSH_PRIVATE_KEY ]; then
-    read -p "[!]秘钥文件：$SSH_PRIVATE_KEY 已存在，是否覆盖？(yes/no)" rewire
+
+    if [ $SILENT == true ] ;then
+        rewire="no"
+    else
+        read -p "[!]秘钥文件：$SSH_PRIVATE_KEY 已存在，是否覆盖？(yes/no)" rewire
+    fi
 
     if [ $rewire == "yes" ]; then
         rm $SSH_PRIVATE_KEY
@@ -79,7 +102,12 @@ fi
 
 # 复制资源文件到/etc/ansible文件夹
 if [ -d "/etc/ansible" ]; then
-    read -p "检测到文件夹 /etc/snsible 已存在，是否拷贝安装所需的资源文件？(yes/no)" copy_or_not
+    
+    if [ $SILENT == true ]; then
+        copy_or_not="yes"
+    else
+        read -p "检测到文件夹 /etc/snsible 已存在，是否拷贝安装所需的资源文件？(yes/no)" copy_or_not
+    fi
     
     if [ $copy_or_not == "yes" ]; then
         echo -e "[-]正在将资源文件拷贝到 /etc/ansible 路径下...\c"
